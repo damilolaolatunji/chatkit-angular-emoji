@@ -1,0 +1,69 @@
+<div class="App">
+  <aside class="sidebar">
+    <section  *ngIf="!currentUser" class="join-chat">
+      <h2>Join Chat</h2>
+      <form (ngSubmit)="addUser()">
+        <input placeholder="Enter your username" type="text" name="username" [(ngModel)]="username" />
+      </form>
+    </section>
+    <section class="online-members">
+      <h2>Room Users</h2>
+      <ul class="user-list">
+        <li *ngFor="let user of users">
+          <span class="presence {{ user.presence.state }}"></span>
+          <span>{{ user.name }}</span>
+        </li>
+      </ul>
+    </section>
+  </aside>
+
+  <main class="chat-window">
+    <header class="chat-header">
+      <h1>Chat</h1>
+      <span class="participants"></span>
+    </header>
+    <section class="chat-session">
+      <ul class="message-list">
+        <li class="user-message" *ngFor="let message of messages">
+          <span class="user-id">{{ message.senderId }}</span>
+          <span [innerHTML]="message.text"></span>
+          <img *ngIf="message.attachment"
+            class="image-attachment"
+            src="{{ message.attachment.link }}"
+            alt="{{ message.attachment.name }}"
+            />
+          <a *ngFor="let link of message.url_matches" href="{{ link }}"
+            class="link-preview">{{
+            link }}</a>
+        </li>
+      </ul>
+      <emoji-mart class="emoji-mart" set="emojione" (emojiSelect)="addEmoji($event)" *ngIf="showEmojiPicker" title="Pick your emoji…"></emoji-mart>
+      <div *ngIf="showGiphySearch" class="giphy-search">
+        <form (ngSubmit)="searchGiphy()">
+          <input type="text" placeholder="Search for a GIF" name="giphy" [(ngModel)]="giphySearchTerm">
+        </form>
+        <ul class="search-results">
+          <li class="gif-result" *ngFor="let result of giphyResults">
+            <img src="{{ result.images.downsized_large.url }}"
+            (click)="sendGif(result.title, result.images.original.url)">
+          </li>
+        </ul>
+      </div>
+    </section>
+    <footer class="chat-footer">
+      <form (ngSubmit)='sendMessage()'>
+        <button
+          type="button"
+          class="toggle-emoji"
+          (click)="toggleEmojiPicker()"
+          >
+          <i-smile></i-smile>
+        </button>
+        <input placeholder="Type a message. Hit Enter to send" type="text"
+        name="message" [(ngModel)]="message">
+        <button type="button" class="toggle-giphy"
+          (click)="toggleGiphySearch()">GIF</button>
+      </form>
+    </footer>
+  </main>
+</div>
