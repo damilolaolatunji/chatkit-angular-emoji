@@ -1,6 +1,6 @@
 # Send Emoji and GIFs, and show Rich Link Previews with Chatkit
 
-Demo application that shows how Emoji, GIFs and Rich Link Previews can be implemented in a Chatkit powered application built using Angular 7. Tutorial:
+Demo application that shows how Emoji, GIFs and Rich Link Previews can be implemented in a Chatkit powered application built using Angular 7. Tutorial: https://pusher.com/tutorials/emoji-gifs-link-previews-angular-chatroom
 
 ## Getting Started
 
